@@ -8,14 +8,14 @@ import { listProductDetails } from '../actions/productActions';
 
 import Rating from '../components/Rating'
 
-function ProductScreen({match, history}) {
+function ProductScreen() {
 
     const productId = useParams() // former way: match.params.id (now deprecated) 
     const [qty, setQty] = useState(1)
  
     const navigate = useNavigate() // This is the former history prop, and former useHistory()
     const params = {qty:qty} // Here we set the query param 'qty' to the value qty    
-
+    console.log(params)
     const dispatch = useDispatch();
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
@@ -28,7 +28,7 @@ function ProductScreen({match, history}) {
     //Now we set the navigate hook:        
         navigate({            
            pathname: `/cart/${productId.id}`,            
-           search: `?${createSearchParams(params)}`,          
+           search: `?${createSearchParams(params)}`,
        });        
     } 
 
@@ -98,11 +98,12 @@ function ProductScreen({match, history}) {
                                                     >
                                                         {
                                                             [...Array(product.countInStock).keys()].map((x) => (
-                                                                <option key={x+1} value={x+1}>
+                                                                <option key={x + 1} value={x + 1}>
                                                                     {x + 1}
                                                                 </option>
-                                                            ) )
-                                                        }   
+                                                            ))
+                                                        }
+                                                        {console.log(qty)}   
                                                     </Form.Control>
                                                 </Col>
                                             </Row>
