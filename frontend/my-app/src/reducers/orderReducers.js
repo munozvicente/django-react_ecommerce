@@ -1,4 +1,4 @@
-import { CREATE_ORDER_REQUEST, CREATE_ORDER_SUCCESS, CREATE_ORDER_FAIL } from "../constants/orderConstants";
+import { CREATE_ORDER_REQUEST, CREATE_ORDER_SUCCESS, CREATE_ORDER_FAIL, CREATE_ORDER_RESET } from "../constants/orderConstants";
 
 export const orderCreateReducer = (state = { }, action) => {
     switch (action.type) {
@@ -10,6 +10,9 @@ export const orderCreateReducer = (state = { }, action) => {
 
         case CREATE_ORDER_FAIL:
             return { loading: false, error: action.payload }
+
+        case CREATE_ORDER_RESET:
+            return {}
 
         default:
             return state

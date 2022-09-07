@@ -15,6 +15,7 @@ import Message from "../components/Message";
 import CheckoutSteps from "../components/CheckoutSteps";
 
 import { createOrder } from "../actions/orderActions";
+import { CREATE_ORDER_RESET } from "../constants/orderConstants";
 
 function PlaceOrderScreen({}) {
   const orderCreate = useSelector(state => state.orderCreate);
@@ -36,7 +37,8 @@ function PlaceOrderScreen({}) {
 
   useEffect(() => {
     if(success) {
-      navigate(`/order/${order._id}`)
+      navigate(`/order/${order._id}`);
+      dispatch({ type: CREATE_ORDER_RESET });
     }
   }, [navigate, success]);
 
