@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate, createSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Image, ListGroup, Button, Card, Form, ListGroupItem } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Button, Card, Form } from 'react-bootstrap'
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { listProductDetails } from '../actions/productActions';
@@ -10,7 +10,7 @@ import Rating from '../components/Rating'
 
 function ProductScreen() {
 
-    const productId = useParams() // former way: match.params.id (now deprecated) 
+    const productId = useParams(); // former way: match.params.id (now deprecated) 
     const [qty, setQty] = useState(1)
  
     const navigate = useNavigate() // This is the former history prop, and former useHistory()
