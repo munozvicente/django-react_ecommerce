@@ -48,8 +48,8 @@ function CartScreen() {
 
   const checkoutHandler = () => {
     navigate({            
-      pathname: `/login`,            
-      search: `?redirect=shipping`,
+      pathname: `/shipping`,            
+      /*search: `?redirect=shipping`,*/
   }); 
   };
 
