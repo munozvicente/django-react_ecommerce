@@ -14,7 +14,15 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import CheckoutSteps from "../components/CheckoutSteps";
 
-function PlaceOrderScreen() {
+import { createOrder } from "../actions/orderActions";
+
+function PlaceOrderScreen({}) {
+  const orderCreate = useSelector(state => state.orderCreate);
+  const { order, error, success } = orderCreate;
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const cart = useSelector((state) => state.cart);
 
   cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2);
@@ -22,8 +30,26 @@ function PlaceOrderScreen() {
   cart.taxPrice = ((0.065) * cart.itemsPrice).toFixed(2);
   cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2);
 
+  /*if (!cart.paymentMethod) {
+    navigate('/payment');
+  }*/
+
+  useEffect(() => {
+    if(success) {
+      navigate(`/order/${order._id}`)
+    }
+  }, [navigate, success]);
+
   const placeOrder = () => {
-    console.log("Place Order");
+    dispatch(createOrder({
+      orderItems: cart.cartItems,
+      shippingAddress: cart.shippingAddress,
+      paymentMethod: cart.paymentMethod,
+      itemsPrice: cart.itemsPrice,
+      shippingPrice: cart.shippingPrice,
+      taxPrice: cart.taxPrice,
+      totalPrice: cart.totalPrice,
+    }));
   }
 
   return (
@@ -124,6 +150,10 @@ function PlaceOrderScreen() {
                     <Col>Total Price: </Col>
                     <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item>
 
               <ListGroup.Item>
