@@ -67,7 +67,6 @@ def updateUser(request, pk):
     data = request.data
 
     user.first_name = data['name']
-    user.last_name = data["lastname"]
     user.username = data['email']
     user.email = data['email']
     user.is_staff = data["isAdmin"]
