@@ -35,13 +35,13 @@ function ProductListScreen() {
     if (!userInfo.isAdmin) {
       navigate("/login")
     }
-    /*
+    
     if (userInfo && userInfo.isAdmin) {
         dispatch(listProducts());
     } else {
         navigate("/login")
     }
-  */
+
     if (successCreate) {
       navigate(`/admin/product/${createdProduct._id}/edit`);
     } else {
