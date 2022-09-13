@@ -14,6 +14,10 @@ import {
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAIL,
   ORDER_LIST_MY_RESET,
+  ORDER_LIST_REQUEST,
+  ORDER_LIST_SUCCESS,
+  ORDER_LIST_FAIL,
+  ORDER_LIST_RESET,
 } from "../constants/orderConstants";
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -93,6 +97,22 @@ export const orderListMyReducer = (state = { orders: [] }, action) => {
 
     case ORDER_LIST_MY_RESET:
       return { orders: [] };
+
+    default:
+      return state;
+  }
+};
+
+export const orderListReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case ORDER_LIST_REQUEST:
+      return { loading: true, orders: [] }; // se hace el llamado, aún no hay respuesta
+
+    case ORDER_LIST_SUCCESS:
+      return { loading: false, orders: action.payload }; // ya se hizo el llamado y se guarda en el estado la data de productos
+
+    case ORDER_LIST_FAIL:
+      return { loading: false, error: action.payload }; // ya se hizo el llamado y se guarda en el estado el error
 
     default:
       return state;

@@ -18,7 +18,7 @@ import {
   userDeleteReducer,
   userUpdateReducer,
 } from "./reducers/userReducers";
-import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListMyReducer,  } from "./reducers/orderReducers";
+import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListMyReducer, orderListReducer  } from "./reducers/orderReducers";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -38,6 +38,7 @@ const reducer = combineReducers({
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,
+  orderList: orderListReducer,
 }); // Here we put in the reducers we will use
 
 // Load cart items from storage into initial state
