@@ -3,6 +3,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser 
 from rest_framework.response import Response
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from ..models import Product
 from ..serializers import ProductSerializer
@@ -46,17 +47,17 @@ def updateProduct(request, pk):
     data = request.data
     product = Product.objects.get(_id=pk)
 
-    product.name = data["name"],
-    product.price = data["price"],
-    product.brand = data["brand"],
-    product.countInStock = data["countInStock"],
-    product.category = data["category"],
-    product.description = data["description"],
+    product.name = data['name'],
+    product.price = data['price'],
+    product.brand = data['brand'],
+    product.countInStock = data['countInStock'],
+    product.category = data['category'],
+    product.description = data['description'],
 
+    #product.full_clean()
     product.save()
 
     serializer = ProductSerializer(product, many=False)
-
     return Response(serializer.data)
 
 @api_view(["DELETE"])
