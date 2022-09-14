@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+
 import { 
   productListReducer, 
   productDetailsReducer, 
@@ -8,7 +9,9 @@ import {
   productCreateReducer,
   productUpdateReducer,
 } from "./reducers/productReducers";
+
 import { cartReducer } from "./reducers/cartReducers";
+
 import { 
   userLoginReducer,
   userRegisterReducer,
@@ -18,7 +21,15 @@ import {
   userDeleteReducer,
   userUpdateReducer,
 } from "./reducers/userReducers";
-import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListMyReducer, orderListReducer  } from "./reducers/orderReducers";
+
+import { 
+  orderCreateReducer, 
+  orderDetailsReducer, 
+  orderPayReducer, 
+  orderListMyReducer, 
+  orderListReducer,
+  orderDeliverReducer 
+} from "./reducers/orderReducers";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -39,6 +50,7 @@ const reducer = combineReducers({
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,
   orderList: orderListReducer,
+  orderDeliver: orderDeliverReducer,
 }); // Here we put in the reducers we will use
 
 // Load cart items from storage into initial state
