@@ -8,6 +8,7 @@ import {
   productDeleteReducer, 
   productCreateReducer,
   productUpdateReducer,
+  productReviewCreateReducer
 } from "./reducers/productReducers";
 
 import { cartReducer } from "./reducers/cartReducers";
@@ -51,6 +52,7 @@ const reducer = combineReducers({
   productUpdate: productUpdateReducer,
   orderList: orderListReducer,
   orderDeliver: orderDeliverReducer,
+  productReviewCreate: productReviewCreateReducer,
 }); // Here we put in the reducers we will use
 
 // Load cart items from storage into initial state
