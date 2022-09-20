@@ -29,11 +29,11 @@ import {
   PRODUCT_CREATE_REVIEW_RESET,
 } from "../constants/productConstants";
 
-export const listProducts = () => async (dispatch) => {
+export const listProducts = (keyword = '') => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST }); // Inicializa el pedido a la API
 
-    const { data } = await axios.get("http://127.0.0.1:8000/api/products/"); // guarda en la variable la data de products
+    const { data } = await axios.get(`/api/products${keyword}`); // guarda en la variable la data de products
 
     dispatch({
       // Guarda la data en el payload para la respuesta en el caso de haber sido exitoso el llamado

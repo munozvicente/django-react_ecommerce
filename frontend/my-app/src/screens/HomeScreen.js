@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'; // useSelector lets us select certain parts of our state or our redux
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 import Product from '../components/Product';
 import Loader from '../components/Loader';
@@ -12,10 +13,16 @@ function HomeScreen() {
     const productsReducer = useSelector(state => state.productList)
     const { products, loading, error } = productsReducer
 
-    useEffect(() => {
-        dispatch(listProducts())
+    let navigate = useNavigate();
+    let location = useLocation();
+    
+    let keyword = location.search;
+    console.log(keyword)
 
-    }, [dispatch])
+    useEffect(() => {
+        dispatch(listProducts(keyword))
+
+    }, [dispatch, keyword])
 
   return (
     <div>
