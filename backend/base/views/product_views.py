@@ -19,8 +19,24 @@ def getProducts(request):
         query = ''
 
     products = Product.objects.filter(name__icontains=query)
+
+    page = request.query_params.get('page')
+    paginator = Paginator(products, 4)
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    if page == None:
+        page = 1
+    
+    page = int(page)
+
     serializer = ProductSerializer(products, many=True)
-    return Response(serializer.data)
+    return Response({'products': serializer.data, 'page': page, 'pages' :paginator.num_pages})
 
 @api_view(['GET'])
 def getProduct(request, pk):

@@ -5,13 +5,14 @@ import { Row, Col } from 'react-bootstrap';
 import Product from '../components/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import Paginate from '../components/Paginate';
 import { listProducts } from '../actions/productActions';
 
 
 function HomeScreen() {
     const dispatch = useDispatch()
     const productsReducer = useSelector(state => state.productList)
-    const { products, loading, error } = productsReducer
+    const { products, loading, error, page, pages } = productsReducer
 
     let navigate = useNavigate();
     let location = useLocation();
@@ -30,6 +31,7 @@ function HomeScreen() {
         {loading ? <Loader/>
           : error ? <Message variant="danger">{error}</Message> // indica que el color será rojo
             :
+          <div>
             <Row>
               {products.map(product => (
                 <Col key={product.id} sm={12} md={6} lg={4} xl={3}>
@@ -37,6 +39,8 @@ function HomeScreen() {
                 </Col>
               ))}
             </Row>
+            <Paginate page={page} pages={pages}/>
+          </div>
         }
     </div>
   )

@@ -6,28 +6,33 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Paginate from "../components/Paginate";
 
 import { listProducts, deleteProduct, createProduct } from "../actions/productActions";
 
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+import { useLocation } from "react-router";
 
 function ProductListScreen() {
 
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
 
   const productDelete = useSelector((state) => state.productDelete);
   const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete;
 
   const productCreate = useSelector((state) => state.productCreate);
   const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct } = productCreate;
+
+  let keyword = location.search;
+    console.log(keyword)
 
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET })
@@ -37,7 +42,7 @@ function ProductListScreen() {
     }
     
     if (userInfo && userInfo.isAdmin) {
-        dispatch(listProducts());
+        dispatch(listProducts(keyword));
     } else {
         navigate("/login")
     }
@@ -45,10 +50,10 @@ function ProductListScreen() {
     if (successCreate) {
       navigate(`/admin/product/${createdProduct._id}/edit`);
     } else {
-      dispatch(listProducts());
+      dispatch(listProducts(keyword));
     }
 
-  }, [dispatch, navigate, userInfo, successCreate, createdProduct, successDelete]);
+  }, [dispatch, navigate, userInfo, successCreate, createdProduct, successDelete, keyword]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
@@ -84,6 +89,7 @@ function ProductListScreen() {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
+        <div>
         <Table striped bordered hover responsive className="table-sm">
             <thead>
                 <tr>
@@ -118,6 +124,8 @@ function ProductListScreen() {
                 ))}
             </tbody>
         </Table>
+        <Paginate page={page} pages={pages} isAdmin={true} />
+        </div>
       )}
     </div>
   );

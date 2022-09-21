@@ -29,7 +29,7 @@ export const productListReducer = (state = { products: [] }, action) => {
       return { loading: true, products: [] }; // se hace el llamado, aún no hay respuesta
 
     case PRODUCT_LIST_SUCCESS:
-      return { loading: false, products: action.payload }; // ya se hizo el llamado y se guarda en el estado la data de productos
+      return { loading: false, products: action.payload.products, page: action.payload.page, pages: action.payload.pages }; // ya se hizo el llamado y se guarda en el estado la data de productos
 
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: action.payload }; // ya se hizo el llamado y se guarda en el estado el error
