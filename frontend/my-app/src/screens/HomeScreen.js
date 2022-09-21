@@ -6,6 +6,7 @@ import Product from '../components/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Paginate from '../components/Paginate';
+import ProductCarousel from '../components/ProductCarousel';
 import { listProducts } from '../actions/productActions';
 
 
@@ -21,12 +22,13 @@ function HomeScreen() {
     console.log(keyword)
 
     useEffect(() => {
-        dispatch(listProducts(keyword))
+        dispatch(listProducts(keyword));
 
     }, [dispatch, keyword])
 
   return (
     <div>
+        {!keyword && <ProductCarousel />}
         <h1>Latest Products</h1>
         {loading ? <Loader/>
           : error ? <Message variant="danger">{error}</Message> // indica que el color será rojo
