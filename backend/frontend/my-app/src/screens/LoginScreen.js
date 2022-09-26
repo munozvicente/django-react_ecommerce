@@ -30,6 +30,7 @@ const LoginScreen = () => {
   }, [navigate, userInfo, redirect])
 
   return (
+    <div>
     <FormContainer>
       <h1>Sign In</h1>
       {error && <Message variant="danger">{error}</Message>}
@@ -62,12 +63,13 @@ const LoginScreen = () => {
       <Row className="py-3">
         <Col>
           New Customer? 
-          <Link to={redirect ? `register/?redirect=${redirect}` : '/register'}>Register</Link>
+          <Link to={'/register'}>Register</Link>
         </Col>
       </Row>
 
 
     </FormContainer>
+    </div>
   );
 };
 
